@@ -1,0 +1,4 @@
+from responsables.Events.Listeners.NotificationListener import set_up_notification_events
+
+
+set_up_notification_events()
