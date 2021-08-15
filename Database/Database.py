@@ -1,10 +1,10 @@
 from sqlalchemy import create_engine,text
 
 from sqlalchemy.orm import sessionmaker
-
+from decouple import config
 from .Base import Base
 
-SQLALCHEMY_DATABASE_URL = "postgresql://postgres:postgres@localhost/sala"
+SQLALCHEMY_DATABASE_URL = config("DATABASE_URL")
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL, connect_args={}

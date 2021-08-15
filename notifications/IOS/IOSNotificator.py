@@ -19,8 +19,8 @@ class IOSNotificator:
         self.NotificationBuilder = builder
 
     async def push(self,device_token:str,title:str,body:str,data:dict,sound:str="default"):#, device_token: str, isProduction=True):
-        file = open(self.APNS_AUTH_KEY)
-        secret = file.read()
+        secret = self.APNS_AUTH_KEY
+        print(secret)
         token = jwt.encode({
                     'iss': self.TEAM_ID,
                     'iat': time.time()
