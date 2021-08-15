@@ -23,12 +23,12 @@ from typing import List
 router = APIRouter()
 
 # Estancia
-@router.get("/estancia/{id_estancia:int}", status_code=200,response_model=EstanciaDetail)
+@router.get("/estancia/{id_estancia:int}", status_code=200,response_model=EstanciaDetail,tags=["Autheticated"])
 async def get_estancia(id_estancia:int,controller:EstanciaController = Depends(EstanciaController)):
     return await controller.get_estancia(id_estancia=id_estancia)
 
 
-@router.get("/estancia/",response_model=List[EstanciaShow])
+@router.get("/estancia/",response_model=List[EstanciaShow],tags=["Autheticated"])
 async def get_estancias(controller:EstanciaController = Depends(EstanciaController)):
     return await controller.get_estancias()
 
@@ -40,7 +40,7 @@ async def create_estancia(estancia:EstanciaCreate,controller:EstanciaController 
 
 # informe 
 
-@router.get("/inform/{id_informe:int}", response_model=InformeDetail)
+@router.get("/inform/{id_informe:int}", response_model=InformeDetail,tags=["Autheticated"])
 async def get_informe(id_informe:int,controller:InformeController = Depends()):
     print(id_informe)
     data = await controller.get_informe(id_informe)
@@ -55,8 +55,8 @@ async def create_informe(inform:InformeCreate ,controller:InformeController = De
 
 # token
 
-@router.post("/notification/token/",status_code=201)
-async def create_device(device:DispositivoResponsableCreate,controller:DeviceController = Depends()):
+@router.post("/notification/token/",status_code=201,tags=["Autheticated"])
+async def register_device(device:DispositivoResponsableCreate,controller:DeviceController = Depends()):
     return controller.register_device_token(device=device)
 
 

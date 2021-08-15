@@ -11,14 +11,7 @@ from responsables.Services import Utilities
 app = FastAPI()
 
 
-# class Settings(BaseModel):
-#     authjwt_secret_key: str = config("SECRET")
-#     authjwt_denylist_enabled: bool = True
-#     authjwt_denylist_token_checks: set = {"access","refresh"}
 
-# @AuthJWT.load_config
-# def get_config():
-#     return Settings()
 
 
 
