@@ -28,12 +28,12 @@ async def get_estancia(id_estancia:int,controller:EstanciaController = Depends(E
     return await controller.get_estancia(id_estancia=id_estancia)
 
 
-@router.get("/estancia/",response_model=List[EstanciaShow],tags=["Autheticated"])
+@router.get("/estancia",response_model=List[EstanciaShow],tags=["Autheticated"])
 async def get_estancias(controller:EstanciaController = Depends(EstanciaController)):
     return await controller.get_estancias()
 
 
-@router.post("/estancia/",status_code=201)
+@router.post("/estancia",status_code=201)
 async def create_estancia(estancia:EstanciaCreate,controller:EstanciaController = Depends()):
     return await controller.create_estancia(estancia=estancia)
 
@@ -42,12 +42,10 @@ async def create_estancia(estancia:EstanciaCreate,controller:EstanciaController 
 
 @router.get("/inform/{id_informe:int}", response_model=InformeDetail,tags=["Autheticated"])
 async def get_informe(id_informe:int,controller:InformeController = Depends()):
-    print(id_informe)
     data = await controller.get_informe(id_informe)
-    print(data)
     return data 
 
-@router.post("/inform/")
+@router.post("/inform")
 async def create_informe(inform:InformeCreate ,controller:InformeController = Depends()):
     return await controller.create_informe(inform=inform)
 
@@ -55,14 +53,14 @@ async def create_informe(inform:InformeCreate ,controller:InformeController = De
 
 # token
 
-@router.post("/notification/token/",status_code=201,tags=["Autheticated"])
+@router.post("/notification/token",status_code=201,tags=["Autheticated"])
 async def register_device(device:DispositivoResponsableCreate,controller:DeviceController = Depends()):
     return controller.register_device_token(device=device)
 
 
 
 # responsable 
-@router.post("/responsable/",status_code=201,response_model=ResponsableShow)
+@router.post("/responsable",status_code=201,response_model=ResponsableShow)
 async def create_resposable(responsable:ResponsableCreate, controller:UserController = Depends()):
     data = await controller.create_user(user=responsable)
     return data
@@ -73,5 +71,4 @@ async def create_resposable(responsable:ResponsableCreate, controller:UserContro
 
 @router.post("/responsable/login",status_code=200,response_model=JWTResponsableShow)
 async def login(user:UserResponsable, controller:AuthController = Depends()):
-    print(user)
     return await controller.login(user=user)
