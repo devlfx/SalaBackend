@@ -18,7 +18,7 @@ app = FastAPI()
 
 @app.exception_handler(AuthJWTException)
 def authjwt_exception_handler(request: Request, exc: AuthJWTException):
-    print("token",request.headers['Authorization'])
+    print("token",request.headers)
     print("path",request.url.path)
     print("url",request.url)
     print("schema", request.url.scheme)
