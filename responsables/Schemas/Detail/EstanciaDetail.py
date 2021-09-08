@@ -1,6 +1,6 @@
 from typing import List
 from responsables.Schemas.Show import EstanciaShow
-from responsables.Schemas.Detail import InformeDetail
+from .InformeDetail import InformeDetail
 
 
 class EstanciaDetail(EstanciaShow):
