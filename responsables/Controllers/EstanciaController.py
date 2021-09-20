@@ -16,7 +16,6 @@ class EstanciaController:
     async def get_estancias(self):
         self.auth_jwt.jwt_required()
         user_data = self.auth_jwt.get_raw_jwt()
-        print(user_data)
         data = self.db.query(models.Estancia) \
             .filter(models.Estancia.re.any(models.Responsable.id_responsable == user_data.get("id_responsable"))) \
             .all()
@@ -27,8 +26,9 @@ class EstanciaController:
     
     async def get_estancia(self,id_estancia:int):
         self.auth_jwt.jwt_required()
+        #self.auth_jwtjwt_optional()
         user_data = self.auth_jwt.get_raw_jwt()
-        print(user_data)
+ 
         data = self.db.query(models.Estancia) \
             .filter(models.Estancia.re.any(models.Responsable.id_responsable == user_data.get("id_responsable"))) \
             .filter(models.Estancia.id_estancia == id_estancia) \

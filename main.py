@@ -1,4 +1,4 @@
-from fastapi import FastAPI,Depends, Request
+from fastapi import FastAPI,Depends, Request,HTTPException
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from fastapi_jwt_auth import AuthJWT
@@ -7,13 +7,27 @@ from fastapi.openapi.utils import get_openapi
 from responsables.router import router as responsablesRouter
 from decouple import config
 from responsables.Services import Utilities
+from starlette.exceptions import HTTPException as StarletteHTTPException
+
 
 app = FastAPI()
 
 
+@app.exception_handler(StarletteHTTPException)
+async def http_exception_handler(request, exc):
+    print(request.client.host)
+    print(request.method)
+    print(request.url.path)
+    print(await request.json())
+    return PlainTextResponse(str(exc.detail), status_code=exc.status_code)
 
-
-
+@app.exception_handler(Exception)
+async def http_exception_handler(request, exc):
+    print(request.client.host)
+    print(request.method)
+    print(request.url.path)
+    print(await request.json())
+    return PlainTextResponse(str(exc.detail), status_code=exc.status_code)
 
 
 @app.exception_handler(AuthJWTException)

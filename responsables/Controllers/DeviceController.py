@@ -18,7 +18,7 @@ class DeviceController:
         user_data = self.auth_jwt.get_raw_jwt()
         data = device.dict()
         data["id_responsable"] = user_data["id_responsable"]
-        db_token = self.db.query(models.DispositivoResposable).filter(models.DispositivoResposable.id_responsable==user_data["id_responsable"]) \
+        db_token =  self.db.query(models.DispositivoResposable).filter(models.DispositivoResposable.id_responsable==user_data["id_responsable"]) \
         .filter(models.DispositivoResposable.token_equipo == data["token_equipo"]).first()
         if not db_token:
             print("nuevo token")

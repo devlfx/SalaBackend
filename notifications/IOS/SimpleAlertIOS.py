@@ -11,14 +11,21 @@ class SimpleAlertIOS(AlertBuilder):
                             'title': title,
                             'body': body
                         },
-                        'badeg': 1,
+                        'badge': 1,
                     "sound": sound
 
                     }
+
                 }
         if thread_id:
             payload_data['aps']["thread-id"] = thread_id
         
+        if data:
+            for key in data:
+                if key == "headers": 
+                    continue
+                payload_data[key] = data.get(key)
+
         return payload_data
 
     def build_headers(self,token:str ,bundle:str ,data:dict = None):
