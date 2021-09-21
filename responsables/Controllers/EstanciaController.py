@@ -18,7 +18,7 @@ class EstanciaController:
         user_data = self.auth_jwt.get_raw_jwt()
         data = self.db.query(models.Estancia) \
             .filter(models.Estancia.re.any(models.Responsable.id_responsable == user_data.get("id_responsable"))) \
-            .order_by(models.Estancia.fecha_ingreso).all()
+            .order_by(models.Estancia.fecha_ingreso.desc()).all()
         if not data:
             raise HTTPException(status_code=404, detail="Item not found")
         return data
