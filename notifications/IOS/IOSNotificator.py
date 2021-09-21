@@ -20,7 +20,7 @@ class IOSNotificator:
 
     async def push(self,device_token:str,title:str,body:str,data:dict,sound:str="default"):#, device_token: str, isProduction=True):
         secret = self.APNS_AUTH_KEY
-        print(secret)
+        print(data)
         token = jwt.encode({
                     'iss': self.TEAM_ID,
                     'iat': time.time()
@@ -41,7 +41,7 @@ class IOSNotificator:
             url += 'api.sandbox.push.apple.com:443'    
         url += path
         
-        payload_data = self.NotificationBuilder.build_body(title=title,body=body,sound=sound)
+        payload_data = self.NotificationBuilder.build_body(data=data,title=title,body=body,sound=sound)
 
         payload = json.dumps(payload_data).encode('utf-8')
 
