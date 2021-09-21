@@ -39,7 +39,7 @@ class Estancia(Base):
     hospital = relationship("Hospital",back_populates="estancias",cascade="all, delete")
     paciente = relationship("Paciente",back_populates="estancias",cascade="all, delete")
     responsable_estancia = relationship("ResponsableEstancia",back_populates="estancia")
-    informes = relationship("Informe",back_populates="estancia")
+    informes = relationship("Informe",back_populates="estancia",order_by="desc(Informe.fecha)")
     procedimiento_autorizacion = relationship("ProcedimientoAutorizacion",back_populates="estancia")
     re = association_proxy('responsable_estancia', 'responsable')
 
