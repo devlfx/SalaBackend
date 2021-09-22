@@ -18,7 +18,7 @@ async def http_exception_handler(request, exc):
     print(request.client.host)
     print(request.method)
     print(request.url.path)
-    print(await request.json())
+
     return PlainTextResponse(str(exc.detail), status_code=exc.status_code)
 
 @app.exception_handler(Exception)
@@ -26,7 +26,7 @@ async def http_exception_handler(request, exc):
     print(request.client.host)
     print(request.method)
     print(request.url.path)
-    print(await request.json())
+
     return PlainTextResponse(str(exc.detail), status_code=exc.status_code)
 
 
