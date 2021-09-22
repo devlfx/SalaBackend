@@ -8,6 +8,6 @@ class ProcedimientoBase(BaseModel):
     nombre: str
     duracion_aproximada: Decimal
     costo: Decimal
-    
+    descripcion:str
     class Config:
         orm_mode = True

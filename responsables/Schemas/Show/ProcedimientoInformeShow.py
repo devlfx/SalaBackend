@@ -7,6 +7,7 @@ class ProcedimientoInformeShow(BaseModel):
     id_procedimiento_informe: int
     id_procedimiento: int
     id_informe: int
+    justificacion:str
 
     procedimiento: ProcedimientoShow 
     procedimiento_autorizacion: Optional [ List [ ProcedimientoAutorizacionShow ] ]

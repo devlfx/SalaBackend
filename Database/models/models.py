@@ -127,6 +127,7 @@ class Procedimiento(Base):
     nombre = Column(String,nullable=False)
     duracion_aproximada = Column(types.Numeric,nullable=False)
     costo = Column(types.Numeric,nullable=False)
+    descripcion = Column(String,server_default=FetchedValue())
 
     hospital_procedimiento = relationship("HospitalProcedimiento",back_populates="procedimiento")
     procedimiento_informe = relationship("ProcedimientoInforme",back_populates="procedimiento")
@@ -174,6 +175,8 @@ class ProcedimientoInforme(Base):
     id_procedimiento_informe = Column(Integer, primary_key=True)
     id_informe = Column(Integer,ForeignKey("informe.id_informe"))
     id_procedimiento = Column(Integer,ForeignKey("procedimiento.id_procedimiento"))
+    justificacion = Column(String,server_default=FetchedValue())
+
 
     informe = relationship("Informe",back_populates="procedimiento_informe")
     procedimiento = relationship("Procedimiento",back_populates="procedimiento_informe")
