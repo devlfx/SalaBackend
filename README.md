@@ -14,4 +14,4 @@ is intended to keep notified to the familiars from a hospitalized patient, witho
  - Heroku (for deployment)
  - uvicorn (Server)
  
-T
+
