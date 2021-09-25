@@ -101,7 +101,7 @@ class ProcedimientoAutorizacion(Base):
     id_estancia = Column(Integer,ForeignKey("estancia.id_estancia"))
     id_responsable = Column(Integer,ForeignKey("responsable.id_responsable"))
     id_procedimiento_informe = Column(Integer,ForeignKey("procedimiento_informe.id_procedimiento_informe"))
-    fecha_autorizacion = Column(types.DateTime)
+    fecha_autorizacion = Column(types.DateTime,server_default=FetchedValue())
 
     estancia = relationship("Estancia",back_populates="procedimiento_autorizacion")
     responsable = relationship("Responsable",back_populates="procedimiento_autorizacion")

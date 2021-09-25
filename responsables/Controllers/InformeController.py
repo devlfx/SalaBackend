@@ -6,14 +6,16 @@ from Database import get_db
 from Database.models import models
 from responsables.Schemas.Create import InformeCreate
 from responsables.Events.Event import post_event
+from responsables.Schemas.Base import ProcedimientoAuthorize
 import asyncio
-
+from fastapi_jwt_auth import AuthJWT
 
 class InformeController:
 
-    def __init__(self,background_tasks: BackgroundTasks, db:Session = Depends(get_db)):
+    def __init__(self,background_tasks: BackgroundTasks, db:Session = Depends(get_db),AuthJWT:AuthJWT = Depends()):
         self.db = db
         self.bg_task = background_tasks
+        self.auth_jwt = AuthJWT
 
     async def get_informe(self,id_informe:int):
         data = self.db.query(models.Informe).get(id_informe)
@@ -49,5 +51,21 @@ class InformeController:
                 )
             inform.notificaciones.append(notification)
 
-
+    async def authorize_procedure(self,procedureInform : ProcedimientoAuthorize):
+        self.auth_jwt.jwt_required()
+        user_data = self.auth_jwt.get_raw_jwt()
+        prc_inform_db = self.db.query(models.ProcedimientoInforme).filter(models.ProcedimientoInforme.id_procedimiento_informe == procedureInform.id_procedimiento_informe).first()
+        if not prc_inform_db:
+            raise HTTPException(status_code=404, detail="Item not found")
+        if len(prc_inform_db.procedimiento_autorizacion) > 0:
+            return 
+        informe_db = prc_inform_db.informe
+        authorization = models.ProcedimientoAutorizacion(
+            id_estancia = informe_db.id_estancia
+            , id_responsable = user_data.get("id_responsable")
+            , id_procedimiento_informe = prc_inform_db.id_procedimiento_informe
+        )
+        prc_inform_db.procedimiento_autorizacion.append(authorization)
+        self.db.add(prc_inform_db)
+        self.db.commit()
 

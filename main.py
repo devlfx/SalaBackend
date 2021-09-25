@@ -13,21 +13,6 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 app = FastAPI()
 
 
-@app.exception_handler(StarletteHTTPException)
-async def http_exception_handler(request, exc):
-    print(request.client.host)
-    print(request.method)
-    print(request.url.path)
-
-    return PlainTextResponse(str(exc.detail), status_code=exc.status_code)
-
-@app.exception_handler(Exception)
-async def http_exception_handler(request, exc):
-    print(request.client.host)
-    print(request.method)
-    print(request.url.path)
-
-    return PlainTextResponse(str(exc.detail), status_code=exc.status_code)
 
 
 @app.exception_handler(AuthJWTException)
@@ -76,9 +61,10 @@ def custom_openapi():
     
     # Get routes from index 4 because before that fastapi define router for /openapi.json, /redoc, /docs, etc
     # Get all router where operation_id is authorize
-    router_authorize = [route for route in app.routes[4:] if "Authenticated" in route.tags]
+    router_authorize = [route for route in app.routes[4:] if "Autheticated" in route.tags]
 
     for route in router_authorize:
+
         method = list(route.methods)[0].lower()
         try:
             # If the router has another parameter

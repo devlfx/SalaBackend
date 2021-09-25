@@ -11,7 +11,7 @@ class SimpleCriticalAlertIOS(AlertBuilder):
                             'title': title,
                             'body': body
                         },
-                        'badge': 1,
+
                     "sound": {
                         "critical": 1,
                         "name": sound,
@@ -29,7 +29,6 @@ class SimpleCriticalAlertIOS(AlertBuilder):
                 if key == "headers": 
                     continue
                 payload_data[key] = data.get(key)
-
         print(payload_data)
         return payload_data
 
