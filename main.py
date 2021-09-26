@@ -37,12 +37,12 @@ app.include_router(
 
 
 def custom_openapi():
-    print("algo")
+
     if app.openapi_schema:
         return app.openapi_schema
 
     openapi_schema = get_openapi(
-        title="Custom title",
+        title="SEVi",
         version="2.5.0",
         description="API Documentation",
         routes=app.routes,
